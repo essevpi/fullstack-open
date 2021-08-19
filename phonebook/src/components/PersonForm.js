@@ -4,10 +4,12 @@ const PersonForm = ({ name, number, handleSubmit, handleNameChange, handleNumber
             <h3>Add new contact:</h3>
             <form onSubmit={handleSubmit}>
                 <div>
-                Name: <input onChange={handleNameChange} value={name}/>
+                    <label>Name: </label>
+                    <input onChange={handleNameChange} value={name}/>
                 </div>
                 <div>
-                Number: <input onChange={handleNumberChange} value={number}/>
+                    <label>Number: </label>
+                    <input onChange={handleNumberChange} value={number}/>
                 </div>
                 <button type="submit">Add</button>
             </form>

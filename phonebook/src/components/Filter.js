@@ -5,7 +5,8 @@ const Filter = ({ searchFilter, handleChange }) => {
     return (
         <div>
             <h3>Filter contacts:</h3>
-            Filter: <input value={searchFilter} onChange={handleChange} />
+            <label>Filter: </label>
+            <input value={searchFilter} onChange={handleChange} />
         </div>
     );
 }

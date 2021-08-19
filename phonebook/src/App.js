@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios';
-import Filter from './Filter';
-import PersonForm from './PersonForm';
-import Persons from './Persons';
+import React, { useState, useEffect } from 'react';
+import Filter from './components/Filter';
+import PersonForm from './components/PersonForm';
+import Persons from './components/Persons';
+import contactService from './services/contacts';
+import './App.css';
 
 const App = () => {
   const [ persons, setPersons ] = useState([]); 
@@ -11,20 +12,63 @@ const App = () => {
   const [ personToFilter, setPersonToFilter] = useState('');
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data);
+    contactService
+      .getContacts()
+      .then(initialContacts => {
+        setPersons(initialContacts);
       })
   }, [])
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    
+    const personToAdd = {
+      name: newName,
+      number: newNumber
+    }
+
+    if(persons.some(person => person.name === newName)){
+      if (window.confirm(`'${newName}' already exist. Replace his number with ${newNumber}?`)) {
+        const idToAdd = persons.find(p => p.name === newName).id;
+        contactService
+          .updateContact(idToAdd, personToAdd)
+          .then(updatedContact => {
+            setPersons(persons.map(person => person.id !== idToAdd ? person : updatedContact));
+            setNewName('');
+            setNewNumber('');
+          })
+      }
+    } else {
+        contactService
+          .createContact(personToAdd)
+          .then(newContact => {
+            setPersons(persons.concat(newContact));
+            setNewName('');
+            setNewNumber('');
+          })
+    }
+  }
+
+  const handleDeleteButton = id => {
+    const filteredPerson = persons.filter(person => person.id === id);
+    const personName = filteredPerson[0].name;
+
+    if(window.confirm(`Delete "${personName}"?`)){
+      contactService
+        .deleteContact(id)
+        .then(updatedPersons => {
+          setPersons(persons.filter(person => person.id !== id));
+        })
+    } else {
+      console.log("NOPE")
+    }
+  }
 
   const personsToShow = personToFilter === ''
     ? persons
     : persons.filter( person => 
         person.name.toLowerCase().includes(personToFilter.toLowerCase())
     );
-
-  console.log(personsToShow);
 
   const handleNameChange = (e) => {
     setNewName(e.target.value);
@@ -38,26 +82,8 @@ const App = () => {
     setPersonToFilter(e.target.value);
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(e.target);
-
-    const personToAdd = {
-      name: newName,
-      number: newNumber
-    }
-
-    if(persons.some(person => person.name === newName)){
-      alert(`${newName} already exists.`)
-    } else {
-      setPersons(persons.concat(personToAdd));
-      setNewName('');
-      setNewNumber('');
-    }
-  }
-
   return (
-    <div>
+    <div className="App">
       <h2>Phonebook</h2>
       <PersonForm 
         name={newName}
@@ -66,7 +92,9 @@ const App = () => {
         handleNameChange={handleNameChange}
         handleNumberChange={handleNumberChange}
       />
-      <Persons persons={personsToShow} />
+      <Persons 
+        persons={personsToShow} 
+        handleDeleteButton={handleDeleteButton} />
       <Filter 
         searchFilter={personToFilter} 
         handleChange={handleFilterChange} />
