@@ -2,14 +2,18 @@ const Persons = ({ persons, handleDeleteButton }) => {
     return(
         <div>
             <h3>Contacts:</h3>
-            <ul className="NoBulletList">
+            <div >
             {persons.map(person => 
-                <li key={person.id}>
-                    {person.name} : {person.number} {' '}
-                    <button onClick={() => handleDeleteButton(person.id)}>Delete</button>
-                </li>
+                <div key={person.name} className="ContactInfo">
+                    <p>
+                        {person.name} : {person.number} {' '}
+                    </p>
+                    
+                    <button onClick={() => handleDeleteButton(person.id)} id="deleteButton">Delete</button>    
+                      
+                </div>
             )}
-            </ul>
+            </div>
         </div>
     );
 }

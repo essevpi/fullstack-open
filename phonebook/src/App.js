@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
+import Notification from './components/Notification';
 import contactService from './services/contacts';
-import './App.css';
+import './index.css';
 
 const App = () => {
   const [ persons, setPersons ] = useState([]); 
   const [ newName, setNewName ] = useState('');
   const [ newNumber, setNewNumber ] = useState('');
   const [ personToFilter, setPersonToFilter] = useState('');
+  const [ notificationMessage, setNotificationMessage ] = useState(null);
+  const [ notificationType, setNotificationType ] = useState('');
 
   useEffect(() => {
     contactService
@@ -36,7 +39,19 @@ const App = () => {
             setPersons(persons.map(person => person.id !== idToAdd ? person : updatedContact));
             setNewName('');
             setNewNumber('');
+            setNotificationMessage(`"${newName}" number is updated to ${newNumber}`);
+            setNotificationType('Success');
           })
+          .catch(() => {
+            setPersons(persons.filter(person => person.id !== idToAdd));
+            setNotificationMessage(`"${newName}" was already removed from server!`);
+            setNotificationType('Error');
+          })
+        
+        setTimeout(() => {
+          setNotificationMessage(null);
+        }, 5000);
+
       }
     } else {
         contactService
@@ -45,6 +60,12 @@ const App = () => {
             setPersons(persons.concat(newContact));
             setNewName('');
             setNewNumber('');
+            setNotificationMessage(`"${newName}" has been added to contacts.`);
+            setNotificationType('Success');
+
+            setTimeout(() => {
+              setNotificationMessage(null);
+            }, 5000);
           })
     }
   }
@@ -55,12 +76,15 @@ const App = () => {
 
     if(window.confirm(`Delete "${personName}"?`)){
       contactService
-        .deleteContact(id)
-        .then(updatedPersons => {
-          setPersons(persons.filter(person => person.id !== id));
-        })
-    } else {
-      console.log("NOPE")
+        .deleteContact(id);
+
+      setPersons(persons.filter(person => person.id !== id));
+      setNotificationMessage(`"${personName}" was deleted from contacts`);
+      setNotificationType('Success');
+
+      setTimeout(() => {
+        setNotificationMessage(null);
+      }, 5000);
     }
   }
 
@@ -84,20 +108,29 @@ const App = () => {
 
   return (
     <div className="App">
-      <h2>Phonebook</h2>
-      <PersonForm 
-        name={newName}
-        number={newNumber}
-        handleSubmit={handleSubmit}
-        handleNameChange={handleNameChange}
-        handleNumberChange={handleNumberChange}
-      />
-      <Persons 
-        persons={personsToShow} 
-        handleDeleteButton={handleDeleteButton} />
-      <Filter 
-        searchFilter={personToFilter} 
-        handleChange={handleFilterChange} />
+      <div className="ContainerHalf">
+        <h2>Phonebook</h2>
+        <div className="Contacts">
+          <Persons 
+            persons={personsToShow} 
+            handleDeleteButton={handleDeleteButton} />
+          <Filter 
+            searchFilter={personToFilter} 
+            handleChange={handleFilterChange} />
+        </div>
+      </div>
+      <div className="ContainerHalf">
+        <div className="ContactActions">
+          <PersonForm 
+            name={newName}
+            number={newNumber}
+            handleSubmit={handleSubmit}
+            handleNameChange={handleNameChange}
+            handleNumberChange={handleNumberChange}
+          />
+          <Notification message={notificationMessage} type={notificationType} />
+        </div>
+      </div>
     </div>
   )
 }

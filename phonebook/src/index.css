@@ -1,13 +1,117 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(243, 243, 243);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.App {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 32px;
+  padding: 16px;
+  border: 1px solid #fff;
+  border-radius: 16px;
+  font-family: 'Roboto', sans-serif;
+  background-color: #fff;
+  box-shadow: 0 6px 10px rgb(0 0 0 / 0.2);
+}
+
+.ContainerHalf {
+  flex: 1;
+  padding: 32px;
+}
+
+.App input {
+  outline: none;
+  border-radius: 16px;
+  border: 1px solid #aaa;
+  padding: 4px;
+}
+
+#addButton {
+  background-color: #fff;
+  padding: 4px 8px;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 16px;
+  border-color: #00e417;
+  transition-duration: 0.4s;
+}
+
+#deleteButton {
+  background-color: #fff;
+  padding: 4px 8px;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 16px;
+  border-color: #c00000;
+  transition-duration: 0.4s;
+}
+
+#addButton:hover {
+  background-color: #00e417;
+  color: #fff;
+}
+
+#deleteButton:hover {
+  background-color: #c00000;
+  color: #fff;
+}
+
+.Form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.Form label {
+  grid-column: 1 / 2;
+}
+
+.Form input, button {
+  grid-column: 2 / 3;
+}
+
+.Contacts, .ContactActions {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+}
+
+.ContactInfo {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 8px auto;
+}
+
+.ContactInfo p {
+  grid-column: 1/2;
+  margin: 0;
+  padding: 8px;
+}
+
+.ContactInfo button {
+  grid-column: 2/3;
+}
+
+.NotificationSuccess {
+  width: 75%;
+  margin: auto;
+  padding: 16px;
+  color: #00e417;
+  background-color: #eee;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 16px;
+}
+
+.NotificationError {
+  width: 75%;
+  margin: auto;
+  padding: 16px;
+  color: #c00000;
+  background-color: #eee;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 16px;
 }
