@@ -3,20 +3,35 @@ import Note from './components/Note';
 import Notification from './components/Notification';
 import Footer from './components/Footer';
 import noteService from './services/notes';
+import loginService from './services/login';
+import NoteForm from './components/NoteForm';
+import LoginForm from './components/LoginForm';
 
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
   const [showAll, setShowAll] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
       noteService
         .getAll()
         .then(initialNotes => {
           setNotes(initialNotes);
-        })
-  }, [])
+        });
+  }, []);
+
+  useEffect(() => {
+      const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser');
+      if (loggedUserJSON) { 
+          const user = JSON.parse(loggedUserJSON);
+          setUser(user);
+          noteService.setToken(user.token);
+      }
+  }, []);
 
   const toggleImportanceOf = (id) => {
     const note = notes.find(n => n.id === id);
@@ -42,7 +57,6 @@ const App = () => {
     e.preventDefault();
     const noteToAdd = {
       content: newNote,
-      id: notes.length + 1,
       date: new Date().toISOString(),
       important: Math.random() < 0.5
     }
@@ -67,28 +81,65 @@ const App = () => {
     setShowAll(!showAll);
   }
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+        const user = await loginService.logIn({
+            username, password
+        });
+
+        window.localStorage.setItem('loggedNoteAppUser', JSON.stringify(user));
+        noteService.setToken(user.token);
+        setUser(user);
+        setUsername('');
+        setPassword('');
+    } catch (exception) {
+        setErrorMessage('Wrong credentials');
+        setTimeout(() => {
+            setErrorMessage(null);
+        }, 5000);
+    }
+  }
+
   return (
     <div className='App'>
-      <h1>Notes</h1>
-      <Notification message={errorMessage} />
-      <div>
+        <h1>Notes</h1>
+        <Notification message={errorMessage} />
+        { 
+            user === null ?
+                <LoginForm 
+                    username={username}
+                    password={password}
+                    setUsername={setUsername}
+                    setPassword={setPassword}
+                    handleLogin={handleLogin}
+                /> :
+                <div>
+                    <p>{user.name} is logged</p>
+                    <NoteForm 
+                        addNote={addNote}
+                        handleNoteChange={handleNoteChange}
+                        newNote={newNote}
+                    />
+                </div> 
+        }
+
+    <div>
         <ul>
-          {notesToShow.map(note => 
-              <Note 
+        {notesToShow.map(note => 
+            <Note 
                 key={note.id} 
                 note={note} 
                 toggleImportance={() => toggleImportanceOf(note.id)} />
-          )}
+        )}
         </ul>
         <button onClick={handleShowAllNotes}>
-          {showAll ? 'Show important' : 'Show all'}
+        {showAll ? 'Show important' : 'Show all'}
         </button>
-      </div>
-      <form className="NoteForm" onSubmit={addNote}>
-        <input onChange={handleNoteChange} value={newNote} />
-        <button type='submit'>Save</button>
-      </form>
-      <Footer />
+    </div>
+    
+    <Footer />
     </div>
   )
 }
