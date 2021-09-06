@@ -1,0 +1,236 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--theme-darker);
+}
+
+:root {
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    color: var(--text-primary);
+    --text-primary: #bebebe;
+    --text-secondary: #bebebee5;
+    --text-hover: #caaef7;
+    --theme-primary: #8770ad;
+    --theme-secondary: #ad57fd;
+    --shadow-hover:#7474744f;
+    --theme-darkless: #2b2b2b;
+    --theme-dark: #1f1e1e;
+    --theme-darker: #131212;
+    --transition-speed: 400ms;
+    --border-radius: 0.45rem;
+}
+
+body::-webkit-scrollbar {
+    width: 0.35rem;
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--theme-dark);
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--theme-primary);
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-primary);
+}
+a:hover {
+    color: var(--text-hover);
+}
+
+button {
+    padding: 0.3rem;
+    color: #fff;
+    background: var(--theme-primary);
+    border: none;
+    border-radius: var(--border-radius);
+}
+
+button:hover {
+    color: var(--text-hover);
+}
+
+.MainContent {
+    padding: 1rem;
+    margin: 2rem auto;
+    width: 75vw;
+    text-align: center;
+    background: var(--theme-dark);
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
+}
+
+.NavContainer {
+    display: flex;
+    height: 4rem;
+    background: var(--theme-primary);
+    align-items: center;
+    width: 100%;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
+}
+
+.NavLeftHalf, .NavRightHalf {
+    height: 100%;
+}
+
+.NavLeftHalf {
+    flex: 3;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.NavRightHalf {
+    flex: 1;
+    color: #fff;
+}
+
+.NavHeader {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1ch;
+}
+
+.NavHeader .NavLogo {
+    font-size: 1.75rem;
+    margin: 0 1rem;
+}
+
+.NavUser {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    padding-right: 1rem;
+}
+
+.NavUser p {
+    align-self: flex-end;
+}
+
+.NavUser button {
+    align-self: flex-end;
+    padding: 0;
+}
+
+.LoginForm, .BlogForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75%;
+    margin: 0 auto;
+}
+
+.LoginField, .BlogField {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.LoginField label, .BlogField label {
+    flex: 1;
+    text-align: left;
+    margin: auto;
+}
+
+.LoginField input, .BlogField input {
+    flex: 3;
+    min-width: 0;
+    padding: 0.3rem;
+    color: var(--text-primary);
+    outline: none;
+    border: none;
+    box-shadow: 0 0 8px 1px var(--shadow-hover);
+    border-radius: var(--border-radius);
+    background: var(--theme-darkless);
+    transition: var(--transition-speed);
+}
+
+.LoginField input:focus, .BlogField input:focus {
+    box-shadow: 0 0 8px 1px var(--theme-primary);
+}
+
+.LoginForm button, .BlogForm button {
+    width: 100%;
+    padding: 0.3rem;
+    color: #fff;
+    background: var(--theme-primary);
+    border-radius: var(--border-radius);
+    transition: var(--transition-speed);
+}
+
+.LoginForm button:hover, .BlogForm button:hover {
+    box-shadow: 0 0 8px 1px var(--theme-primary);
+}
+
+.BlogForm p {
+    text-align: left;
+    font-weight: bold;
+    width: 100%;
+}
+
+.BlogsContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.BlogList {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    width: 75%;
+    padding-bottom: 1rem;
+}
+
+.Blog {
+    text-align: left;
+    padding: 0.85rem;
+    border: 1px solid;
+}
+
+.Blog + .Blog {
+    border-top: none;
+}
+
+.BlogDesc {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.75rem;
+}
+
+.BlogTitle {
+    font-weight: 700;
+}
+
+.BlogAuthor, .BlogLikes {
+    font-weight: 300;
+    color:var(--text-secondary);
+}
+
+@media screen and (max-width: 960px) {  
+    .LoginForm, .BlogForm {
+        width: 75%;
+    }
+
+    .LoginField, .BlogField {
+        flex-direction: column;
+    }
+
+    .LoginField label, .BlogField label {
+        margin: 0;
+        margin-bottom: 0.75rem;
+    }
+}
