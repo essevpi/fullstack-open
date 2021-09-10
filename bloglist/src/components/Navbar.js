@@ -12,16 +12,16 @@ const Navbar = ({ user, handleLogout }) => {
             </div>
             <div className="NavRightHalf">
                 {
-                    user === null 
-                    ? null
-                    : <div className="NavUser">
-                        <p>{user.name}</p>
-                        <button onClick={handleLogout}>Log Out</button>
-                    </div>
+                    user === null
+                        ? null
+                        : <div className="NavUser">
+                            <p>{user.name}</p>
+                            <button onClick={handleLogout}>Log Out</button>
+                        </div>
                 }
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Navbar
+export default Navbar;
