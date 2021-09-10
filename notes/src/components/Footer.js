@@ -6,7 +6,7 @@ const Footer = () => {
         fontStyle: 'italic',
         fontSize: 12,
         textAlign: 'center'
-    }
+    };
 
     return (
         <div style={footerStyle}>
@@ -14,6 +14,6 @@ const Footer = () => {
             <em>Note app - Fullstack Open 2021</em>
         </div>
     );
-}
+};
 
 export default Footer;
