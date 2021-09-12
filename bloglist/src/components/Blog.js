@@ -33,7 +33,7 @@ const Blog = ({ blog, user, addLike, removeBlog }) => {
                 </button>
             </div>
 
-            <div className="BlogDesc" style={showContent}>
+            <div className="BlogTogglableContent" style={showContent}>
                 <div className="BlogLink">
                     <a href="#">
                         {blog.url}

@@ -232,7 +232,7 @@ button:hover {
     font-weight: 700;
 }
 
-.BlogDesc {
+.BlogTogglableContent {
     display: flex;
     align-items: center;
     justify-content: space-between;
