@@ -2,9 +2,9 @@ import React from 'react';
 
 const Notification = ({ type, message }) => {
     const notificationStyle = {
-        color: type === 'Success' ? 'var(--theme-primary)' : '#dd0000',
+        color: type === 'Success' ? 'var(--theme-primary)' : '#dc0000',
         backgroundColor: '#2b2b2b',
-        border: `1px solid ${type === 'Success' ? 'var(--theme-primary)' : '#dd0000'}`,
+        border: `1px solid ${type === 'Success' ? 'var(--theme-primary)' : '#dc0000'}`,
         borderRadius: '0.45rem',
         padding: '1rem',
         width: '50%',
@@ -17,7 +17,7 @@ const Notification = ({ type, message }) => {
     }
 
     return (
-        <div style={notificationStyle}>
+        <div style={notificationStyle} id="notification">
             {message}
         </div>
     );

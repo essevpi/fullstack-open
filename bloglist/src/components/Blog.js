@@ -34,7 +34,7 @@ const Blog = ({ blog, user, addLike, removeBlog }) => {
             </div>
 
             <div className="BlogTogglableContent" style={showContent}>
-                <div className="BlogLink">
+                <div className="BlogUrl">
                     <a href="#">
                         {blog.url}
                     </a>

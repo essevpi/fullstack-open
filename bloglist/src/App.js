@@ -115,7 +115,7 @@ const App = () => {
                             <h2>Welcome to Bloglist!</h2>
                             <p>Login to start browsing blogs</p>
                         </div>
-                        <Togglable buttonLabel="Login">
+                        <Togglable buttonLabel="Log in">
                             <LoginForm
                                 handleLogin={handleLogin}
                             />
