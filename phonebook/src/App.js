@@ -42,11 +42,15 @@ const App = () => {
             setNotificationMessage(`"${newName}" number is updated to ${newNumber}`);
             setNotificationType('Success');
           })
-          .catch(() => {
+          .catch(error => {
+            setNotificationMessage(error.response.data.error);
+            setNotificationType('Error');
+          })
+          /* .catch(() => {
             setPersons(persons.filter(person => person.id !== idToAdd));
             setNotificationMessage(`"${newName}" was already removed from server!`);
             setNotificationType('Error');
-          })
+          }) */
         
         setTimeout(() => {
           setNotificationMessage(null);
@@ -62,11 +66,15 @@ const App = () => {
             setNewNumber('');
             setNotificationMessage(`"${newName}" has been added to contacts.`);
             setNotificationType('Success');
-
-            setTimeout(() => {
-              setNotificationMessage(null);
-            }, 5000);
           })
+          .catch(error => {
+            setNotificationMessage(error.response.data.error);
+            setNotificationType('Error');
+          })
+            
+          setTimeout(() => {
+            setNotificationMessage(null);
+          }, 5000);
     }
   }
 
