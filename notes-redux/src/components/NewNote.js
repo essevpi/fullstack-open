@@ -10,7 +10,7 @@ const NewNote = () => {
         const content = event.target.note.value;
         event.target.note.value = '';
         dispatch(createNote(content));
-    }
+    };
 
     return (
         <div>
