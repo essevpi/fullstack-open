@@ -2,22 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { createStore, combineReducers } from 'redux';
+import store from './store';
 import { Provider } from 'react-redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-
-import noteReducer from './reducers/noteReducer';
-import filterReducer from './reducers/filterReducer';
-
-const reducer = combineReducers({
-    notes: noteReducer,
-    filter: filterReducer
-});
-
-const store = createStore(reducer, composeWithDevTools());
-window.store = store; //used to access store from browser console
-
-store.subscribe(() => console.log(store.getState()));
 
 ReactDOM.render(
     <Provider store={store}>
