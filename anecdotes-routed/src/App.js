@@ -13,7 +13,7 @@ import {
 
 const Footer = () => (
   <div>
-    <em>FOOTER</em>
+    <em>THIS IS A FOOTER</em>
   </div>
 );
 
@@ -49,7 +49,7 @@ const App = () => {
     }, 10 * 1000);
   };
 
-  const anecdoteById = (id) =>
+  /* const anecdoteById = (id) =>
     anecdotes.find(a => a.id === id);
 
   const vote = (id) => {
@@ -61,7 +61,7 @@ const App = () => {
     };
 
     setAnecdotes(anecdotes.map(a => a.id === id ? voted : a));
-  };
+  }; */
 
   const match = useRouteMatch('/anecdotes/:id');
   const anecdote = match
